@@ -1,0 +1,49 @@
+﻿@model EditRoleViewModel
+
+<h2>Edit Role</h2>
+<form asp-controller="Admin" asp-action="UpdateRole" method="post" role="form" class="form-horizontal">
+    <h4>You can change user details below</h4>
+    <hr />
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="RoleId" class="col-md-2 control-label" ></label>
+        <div class="col-md-10">
+            <input asp-for="RoleId" class="form-control" readonly ="readonly" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="RoleName" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="RoleName" class="form-control" />
+            <span asp-validation-for="RoleName" class="text-danger"></span>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-primary" value="Save Role" />
+            <a asp-action="RoleManagement" class="btn btn-primary">Cancel</a>
+        </div>
+    </div>
+</form>
+
+<h3>users in this role</h3>
+<div class="list-group">
+    @if (!Model.Users.Any())
+    {
+        <h3> No users in this role</h3>
+    }
+    else
+    {
+        <ol class="list-group">
+            @foreach (var user in Model.Users)
+            {
+                <li class="list-group-item">@user</li>
+            }
+        </ol>
+    }
+    <a asp-action="AddUserToRole" asp-route-roleId="@Model.RoleId">Add User To Role</a>
+</div>

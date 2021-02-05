@@ -1,0 +1,23 @@
+﻿@model IEnumerable<PieShop.Models.Pie>
+
+@{
+    Layout = "_Layout";
+}
+
+
+@foreach (var pie in Model)
+{
+    <div  class="col-sm-4 col-lg-4 col-md-4">
+        <div class="thumbnail">
+            <img src="@pie.ImageThumbnailUrl" alt="@pie.ShortDescription"/>
+            <div class="caption">
+                <h3 class="pull-right">@pie.Price.ToString("C")</h3>
+                <h3>
+                    <a  asp-controller="Pie"  asp-action="Details"
+                        asp-route-id="@pie.Id">@pie.Name</a>
+                </h3>
+                <p>@pie.ShortDescription</p>
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,64 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+<!DOCTYPE html>
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@addTagHelper *,PieShop
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/CustomStyles/MenuDesign.css" rel="stylesheet" />
+    
+</head>
+<body>
+    <nav class="dropdownmenu">
+        <ul class="nav navbar-nav">
+            <li><a asp-controller="Pie" asp-action="Index">Home</a></li>
+            <li><a asp-controller="Feedback" asp-action="Index">Feedback</a></li>
+
+            @if (User.Identity.IsAuthenticated && User.IsInRole("Administrators"))
+            {
+                <li>
+                    <a>Admin</a>
+                    <ul id="submenu">
+                        <li>
+                            <a asp-controller="Admin" asp-action="UserManagement" class="navbar-brand">User Management</a>
+                        </li>
+                        <li>
+                            <a asp-controller="Admin" asp-action="RoleManagement" class="navbar-brand">Role Management</a>
+                        </li>
+                    </ul>
+                </li>
+            }
+                </ul>
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <form  asp-controller="Account" asp-action="Logout" id="logoutForm"
+                  method="post" >
+                <ul >
+                    <li id="nav-item-right"><a href="javascript:document.getElementById('logoutForm').submit()">Logout</a></li>
+                </ul>
+            </form>
+        }
+        else
+        {
+            <ul id="nav-item-right">
+                <li><a asp-controller="Account" asp-action="Register" class="navbar-brand">Register</a></li>
+                <li><a asp-controller="Account" asp-action="Login" class="navbar-brand">Login</a></li>
+            </ul>
+        }
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            @RenderBody()
+        </div>
+
+    </div>
+
+</body>
+</html>

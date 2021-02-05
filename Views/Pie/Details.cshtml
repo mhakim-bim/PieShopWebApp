@@ -1,0 +1,18 @@
+﻿@model PieShop.Models.Pie
+
+@{
+    Layout = "_Layout";
+}
+
+<div class="thumbnail">
+    <img src="@Model.ImageUrl" alt="@Model.Name"/>
+    <div class="caption">
+        <h3 class="pull-right">@Model.Price.ToString("C")</h3>
+        <h3>
+            <a  asp-controller="Pie"  asp-action="Details">@Model.Name</a>
+        </h3>
+        <h3>@Model.ShortDescription</h3>
+        <p>@Model.LongDescription</p>
+    </div>
+</div>
+
